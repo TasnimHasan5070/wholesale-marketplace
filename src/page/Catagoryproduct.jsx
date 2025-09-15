@@ -18,11 +18,11 @@ const Catagoryproduct = () => {
           (show)?
           <div className='grid grid-cols-3 gap-3 max-w-screen ml-20'>
             {
-            catagoryproducts?.items?.map((p)=><Card key={p._id} catagoryid={catagoryproducts._id} productid={p._id}></Card>)
+            catagoryproducts?.items?.map((p)=><Card key={p._id} catagoryid={catagoryproducts._id} productid={p._id} eachproduct={p}></Card>)
           }
           </div>:
           <div className='grid grid-cols-3 gap-3 max-w-screen ml-20'>{
-            catagoryproducts?.items?.slice(0,6).map((p)=><Card key={p._id} catagoryid={catagoryproducts._id} productid={p._id}></Card>)
+            catagoryproducts?.items?.slice(0,6).map((p)=><Card key={p._id} catagoryid={catagoryproducts._id} productid={p._id} eachproduct={p}></Card>)
           }
           </div>
          }

@@ -2,12 +2,15 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { useLoaderData, useParams } from 'react-router';
 const Update = () => {
-    const {_id,image,name,main_quantity,minimum_selling_quantity,brand_name,product_content,rating,short_description}=useLoaderData()
+    const {_id,name,main_quantity,minimum_selling_quantity,brand_name,rating,short_description}=useLoaderData()
     //console.log(_id,image,name,main_quantity,minimum_selling_quantity,brand_name,product_content,rating,short_description)
     const {catagoryid,productid} =useParams()
     console.log(catagoryid,productid)
     const [category,setcategory]=useState('')
-    const [imageurl,setimageurl]=useState(image||'')
+    const [imageurl,setimageurl]=useState('')
+    /*useEffect(() => {
+    setimageurl(image || '');
+}, []);*/
     const handlecatagory=(inputvalue)=>{
          setcategory(inputvalue)
     }
@@ -18,18 +21,31 @@ const Update = () => {
     const handlefile=async (e)=>{
          const file=e.target.files[0]
          if(file){
-            //const imgurl=URL.createObjectURL(file)
-            //setimageurl(imgurl)
-            //const hostedUrl = await uploadToPostimages(file); // send File, not blob URL
-  //setimageurl(hostedUrl); // hosted URL from Postimages
-           
-       const reader = new FileReader();
-       reader.onloadend = () => {
-      setimageurl(reader.result); // Base64 string
-    };
-    reader.readAsDataURL(file);
+            const formData = new FormData();
+    formData.append("image", file); // <-- send raw file
+    // optional: formData.append("name", file.name);
+
+    try {
+      const res = await axios.post(
+        `https://api.imgbb.com/1/upload?key=e4bafa5db0d0e87665ce7de41e198043`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      const hostedUrl = res.data.data.url;
+     setimageurl(hostedUrl);
+
+    } 
+    catch (err) {
+      console.error("Upload failed", err);
+    }
   };
          }
+
 
     const handleupdate=(e)=>{
        e.preventDefault()
@@ -67,13 +83,7 @@ const Update = () => {
          </div>  
          <div className='grid grid-cols-1'> 
            <div>
-          <input type="text" value={imageurl} onChange={(e)=>setimageurl(e.target.value)} name='image' placeholder="Product image" className="input bg-no-repeat bg-center bg-cover  mt-3 w-3xl ml-96 border-transparent border-dashed border-b-2 border-b-orange-500 focus:outline-none placeholder:font-light text-transparent" 
-          style={{
-          backgroundImage: imageurl ? `url(${imageurl})` : "none",
-          backgroundRepeat: "no-repeat",
-    backgroundPosition: "left center", // show image on left
-    backgroundSize: "100px 100px"
-        }} />
+          <input type="text"  value={imageurl} onChange={(e)=>setimageurl(e.target.value)} name='image' placeholder="Product image(for uploading need some time)" className="input  mt-3 w-3xl ml-96 border-transparent border-dashed border-b-2 border-b-orange-500 focus:outline-none placeholder:font-light "/>
           <button type="button" onClick={handleimage} className="file-input w-36 pl-4" accept="image/*">Upload Image</button>
           <input type="file" id="fileInput" onChange={handlefile} accept="image/*" className='hidden' />
            </div>

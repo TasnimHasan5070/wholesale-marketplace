@@ -6,6 +6,7 @@ import Home from "../page/Home";
 import Catagoryproduct from "../page/Catagoryproduct";
 import Update from "../page/Update";
 import Add from "../page/Add";
+import Allproduct from "../page/Allproduct";
 const route=createBrowserRouter([
     {
         path:'/',
@@ -26,8 +27,9 @@ const route=createBrowserRouter([
                 Component:Update
             },
             {
-                path:'/add',
-                Component:Add
+                path:'allproducts',
+                loader:()=>fetch(`http://localhost:3000/products`),
+                Component:Allproduct
             }
         ]
     }

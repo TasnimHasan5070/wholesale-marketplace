@@ -43,9 +43,11 @@ const Navbar = () => {
     </button>
     </NavLink>
 
+    <NavLink to={`/allproducts`}>
     <button className="tooltip tooltip-warning " data-tip="All Product">
     <RiShoppingBag3Fill size={35} color='#f54a00' className='btn btn-ghost btn-circle'/>
     </button>
+    </NavLink>
 
     <button className='tooltip tooltip-warning' data-tip="My Product">
     <CiShoppingTag size={35} color='#f54a00' className='btn btn-ghost btn-circle'/>
