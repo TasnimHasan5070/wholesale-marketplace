@@ -1,0 +1,88 @@
+import axios from 'axios';
+import React, { useState } from 'react';
+import { useLoaderData, useParams } from 'react-router';
+const Update = () => {
+    const {_id,image,name,main_quantity,minimum_selling_quantity,brand_name,product_content,rating,short_description}=useLoaderData()
+    //console.log(_id,image,name,main_quantity,minimum_selling_quantity,brand_name,product_content,rating,short_description)
+    const {catagoryid,productid} =useParams()
+    console.log(catagoryid,productid)
+    const [category,setcategory]=useState('')
+    const [imageurl,setimageurl]=useState(image||'')
+    const handlecatagory=(inputvalue)=>{
+         setcategory(inputvalue)
+    }
+
+    const handleimage=()=>{
+        document.getElementById('fileInput').click()
+    }
+    const handlefile=async (e)=>{
+         const file=e.target.files[0]
+         if(file){
+            //const imgurl=URL.createObjectURL(file)
+            //setimageurl(imgurl)
+            //const hostedUrl = await uploadToPostimages(file); // send File, not blob URL
+  //setimageurl(hostedUrl); // hosted URL from Postimages
+           
+       const reader = new FileReader();
+       reader.onloadend = () => {
+      setimageurl(reader.result); // Base64 string
+    };
+    reader.readAsDataURL(file);
+  };
+         }
+
+    const handleupdate=(e)=>{
+       e.preventDefault()
+      const form=e.target
+      const formdata=Object.fromEntries(new FormData(form).entries())
+      console.log(formdata)
+      axios.patch(`http://localhost:3000/products/${catagoryid}/${productid}`,formdata)
+      .then(data=>console.log(data))
+      .catch((error)=>console.log(error))
+    }
+    
+
+    return (
+        <div>
+          <h1 className='text-center text-4xl text-orange-500 font-bold lobstar mt-10'>Wanna Update <span className='text-black'>?</span></h1>
+          <form onSubmit={handleupdate}>
+         <div className='grid grid-cols-2 max-w-[780px] ml-96 mt-10 gap-5 '>
+         <input type="text" defaultValue={name} name='name' placeholder="Accessories Name" className="input mb-5 w-full border-transparent border-dashed border-b-2 border-b-orange-500 focus:outline-none font-semibold text-lg"/>
+         <input type="text" defaultValue={brand_name} name='brand' placeholder="Brand Name" className="input mb-5 w-full border-transparent border-dashed border-b-2 border-b-orange-500 focus:outline-none font-semibold text-lg" />
+         <input type="number" min={30} defaultValue={main_quantity} name='stock' placeholder="Stock Product" className="input mb-5 w-full border-transparent border-dashed border-b-2 border-b-orange-500 focus:outline-none font-semibold text-lg" />
+         <input type="number" min={10} defaultValue={minimum_selling_quantity} name='sell' placeholder="Minmum Sell" className="input mb-5 w-full border-transparent border-dashed border-b-2 border-b-orange-500 focus:outline-none font-semibold text-lg" />
+         <input type="number" defaultValue={rating} placeholder="rate product(1-5)" name='rating' className="input mb-5 w-full border-transparent border-dashed border-b-2 border-b-orange-500 focus:outline-none font-semibold text-lg" />
+         <div className="dropdown dropdown-hover">
+        <div tabIndex={0} role="input"><input value={category} type="text" readOnly name='category' placeholder="Choose Your Category" className="input mb-5 w-full border-transparent border-dashed border-b-2 border-b-orange-500 focus:outline-none font-semibold text-lg" /></div>
+        <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-1 w-96 p-2 shadow-sm">
+        <li><button onClick={()=>handlecatagory('Electronics & Gadgets')} type='button'>Electronics & Gadgets</button></li>
+        <li><button onClick={()=>handlecatagory('Home & Kitchen Appliances')} type='button'>Home & Kitchen Appliances</button></li>
+        <li><button onClick={()=>handlecatagory('Fashion & Apparel')} type='button'>Fashion & Apparel</button></li>
+        <li><button onClick={()=>handlecatagory('Industrial Machinery & Tools')} type='button'>Industrial Machinery & Tools</button></li>
+        <li><button onClick={()=>handlecatagory('Health & Beauty')} type='button'>Health & Beauty</button></li>
+        <li><button onClick={()=>handlecatagory('Automotive Parts & Accessories')} type='button'>Automotive Parts & Accessories</button></li>
+        <li><button onClick={()=>handlecatagory('Musical Instruments')} type='button'>Musical Instruments</button></li>
+        </ul>
+        </div>
+         </div>  
+         <div className='grid grid-cols-1'> 
+           <div>
+          <input type="text" value={imageurl} onChange={(e)=>setimageurl(e.target.value)} name='image' placeholder="Product image" className="input bg-no-repeat bg-center bg-cover  mt-3 w-3xl ml-96 border-transparent border-dashed border-b-2 border-b-orange-500 focus:outline-none placeholder:font-light text-transparent" 
+          style={{
+          backgroundImage: imageurl ? `url(${imageurl})` : "none",
+          backgroundRepeat: "no-repeat",
+    backgroundPosition: "left center", // show image on left
+    backgroundSize: "100px 100px"
+        }} />
+          <button type="button" onClick={handleimage} className="file-input w-36 pl-4" accept="image/*">Upload Image</button>
+          <input type="file" id="fileInput" onChange={handlefile} accept="image/*" className='hidden' />
+           </div>
+           <input type="text" placeholder="Product description" name='description' defaultValue={short_description} className="input mt-8 w-3xl ml-96  border-transparent border-dashed border-b-2 border-b-orange-500 focus:outline-none font-semibold text-lg" />   
+           </div>  
+           <div className='text-center mt-10'><button type='submit' className='btn btn-outline border-orange-500 border-2 font-bold text-lg lobstar hover:text-white hover:bg-orange-500 px-10 py-1 rounded-xl'>Submit</button></div>
+           </form> 
+        </div>
+    );
+};
+
+export default Update;
