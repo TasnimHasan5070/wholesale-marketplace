@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useLoaderData, useParams } from 'react-router';
+import Swal from 'sweetalert2';
 const Update = () => {
     const {_id,name,main_quantity,minimum_selling_quantity,brand_name,rating,short_description}=useLoaderData()
     //console.log(_id,image,name,main_quantity,minimum_selling_quantity,brand_name,product_content,rating,short_description)
@@ -21,8 +22,8 @@ const Update = () => {
     const handlefile=async (e)=>{
          const file=e.target.files[0]
          if(file){
-            const formData = new FormData();
-    formData.append("image", file); // <-- send raw file
+          const formData = new FormData();
+          formData.append("image", file); // <-- send raw file
     // optional: formData.append("name", file.name);
 
     try {
@@ -53,7 +54,16 @@ const Update = () => {
       const formdata=Object.fromEntries(new FormData(form).entries())
       console.log(formdata)
       axios.patch(`http://localhost:3000/products/${catagoryid}/${productid}`,formdata)
-      .then(data=>console.log(data))
+      .then(data=>{
+        console.log(data)
+        if(data.data.modifiedCount==1){
+        Swal.fire({
+        title: "Update Successfully!",
+        icon: "success",
+        draggable: true
+       });
+      }
+      })
       .catch((error)=>console.log(error))
     }
     

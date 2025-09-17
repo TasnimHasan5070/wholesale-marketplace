@@ -23,7 +23,7 @@ const Card = ({catagoryid,productid,eachproduct}) => {
      <p className='font-bold lobstar text-lg text-yellow-700'>Minimum Sell:<span className='text-orange-600'>{minimum_selling_quantity}</span></p> 
     </div>
     <div className="card-actions flex justify-between gap-20">
-    <NavLink to={`/products/${catagoryid}/${productid}`}><button className="btn btn-outline rounded-2xl border-orange-500 px-5 font-bold border-2 hover:bg-orange-400 hover:text-white lobstar text-lg">Update</button></NavLink>
+    <NavLink to={`/detailproducts/${catagoryid}/${productid}`}><button className="btn btn-outline rounded-2xl border-orange-500 px-5 font-bold border-2 hover:bg-orange-400 hover:text-white lobstar text-lg">Details</button></NavLink>
       <button className="btn btn-outline rounded-2xl border-orange-500 px-5 font-bold border-2 hover:bg-orange-400 hover:text-white">Add to Cart</button>
     </div>
   </div>

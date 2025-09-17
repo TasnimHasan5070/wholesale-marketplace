@@ -23,7 +23,7 @@ const Allproductcard = ({product,catagoryid,productid}) => {
     </div>
     <div className="card-actions flex justify-between">
     <NavLink to={`/products/${catagoryid}/${productid}`}><button className="btn btn-outline rounded-2xl border-orange-500 px-5 font-bold border-2 hover:bg-orange-400 hover:text-white lobstar text-lg">Update</button></NavLink>
-      <button className="btn btn-outline rounded-2xl border-orange-500 px-5 font-bold border-2 hover:bg-orange-400 hover:text-white lobstar text-lg">Details</button>
+    <NavLink to={`/detailproducts/${catagoryid}/${productid}`}><button className="btn btn-outline rounded-2xl border-orange-500 px-5 font-bold border-2 hover:bg-orange-400 hover:text-white lobstar text-lg">Details</button></NavLink>
     <button className="btn btn-outline rounded-2xl border-orange-500 px-5 font-bold border-2 hover:bg-orange-400 hover:text-white lobstar text-lg">Add to Cart</button>
     </div>
   </div>

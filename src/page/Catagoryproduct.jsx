@@ -30,7 +30,7 @@ const Catagoryproduct = () => {
 
           <div className='flex justify-center mt-10'>
             {
-              (catagoryproducts?.items?.length>5)?<button onClick={handleshow} className='border-2 border-orange-600 font-extrabold rounded-2xl px-3 py-1 text-2xl lobstar hover:bg-orange-500 hover:text-white'>{(show)?<p>Show Less</p>:<p>Show More</p>}</button>:null
+              (catagoryproducts?.items?.length>6)?<button onClick={handleshow} className='border-2 border-orange-600 font-extrabold rounded-2xl px-3 py-1 text-2xl lobstar hover:bg-orange-500 hover:text-white'>{(show)?<p>Show Less</p>:<p>Show More</p>}</button>:null
             }
           </div>
 
