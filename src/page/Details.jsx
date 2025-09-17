@@ -34,7 +34,7 @@ const Details = () => {
     <div className="card-actions ml-8 mr-5 mt-5 lobstar">
       <button className="btn btn-outline w-full text-orange-500 hover:bg-orange-500 hover:text-white font-bold text-2xl" onClick={()=>document.getElementById('my_modal_5').showModal()}>Buy</button>
       <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
-      <Modaldisplay stock={main_quantity} sell={minimum_selling_quantity} price={price}></Modaldisplay>
+      <Modaldisplay  catagoryid={catagoryid} main_quantity={main_quantity}  productid={productid} stock={main_quantity} sell={minimum_selling_quantity} price={price}></Modaldisplay>
 </dialog>
     </div>
   </div>

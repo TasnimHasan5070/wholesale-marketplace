@@ -4,8 +4,10 @@ import { FiMinusCircle } from "react-icons/fi";
 import Swal from 'sweetalert2';
 import { Bounce, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import axios from 'axios';
 
-const Modaldisplay = ({stock,sell,price}) => {
+const Modaldisplay = ({stock,sell,price,catagoryid,productid,main_quantity}) => {
+    
     const [quantity,setquantity]=useState(Number(sell))
     const handleincrease=()=>{
             setquantity(quantity+1)
@@ -26,7 +28,21 @@ progress: undefined,
 theme: "light",
 transition: Bounce,
 });
+   return;
         }
+
+        if(quantity>=(Number(sell))){
+            axios.patch(`http://localhost:3000/products/${catagoryid}/${productid}/stock`,
+            {
+                quantity:Number(quantity),
+                main_quantity:Number(main_quantity)
+            }
+        )
+            .then(data=>console.log(data))
+            .catch(error=>console.log(error))
+        }
+
+        
     }
     return (
         <div className="modal-box">
