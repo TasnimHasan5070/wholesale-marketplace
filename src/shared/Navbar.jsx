@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { FaHome } from "react-icons/fa";
 import { TbShoppingBagPlus } from "react-icons/tb";
 import { RiShoppingBag3Fill } from "react-icons/ri";
 import { CiShoppingTag } from "react-icons/ci";
 import { NavLink } from 'react-router';
+import { Authcontext } from './Authcontext';
+import userpic from '../assets/userpic.png'
 const Navbar = () => {
   const [Product,setProduct]=useState([])
   useEffect(()=>{
@@ -12,6 +14,11 @@ const Navbar = () => {
     .then((data)=>setProduct(data))
     //console.log(Product)
   },[Product])
+  const {user,logout}=useContext(Authcontext)
+  const handlelogout=()=>{
+    logout()
+    .then(console.log('logout successfully'))
+  }
     return (
         <div>
             <div className="navbar bg-black border-b-5 border-0  border-yellow-700 mt-4">
@@ -49,10 +56,14 @@ const Navbar = () => {
     </button>
     </NavLink>
 
+    <NavLink to={`/myproduct`}>
     <button className='tooltip tooltip-warning' data-tip="My Product">
     <CiShoppingTag size={35} color='#f54a00' className='btn btn-ghost btn-circle'/>
     </button>
+    </NavLink>
+
     <div className="dropdown dropdown-end">
+      <NavLink to={`/Cart`}>
       <button className='tooltip tooltip-warning' data-tip="Cart">
       <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
         <div className="indicator text-orange-600">
@@ -61,6 +72,7 @@ const Navbar = () => {
         </div>
       </div>
       </button>
+      </NavLink>
       <div
         tabIndex={0}
         className="card card-compact dropdown-content bg-base-100 z-1 mt-3 w-52 shadow">
@@ -76,17 +88,21 @@ const Navbar = () => {
     </div>
 
     <div className="flex justify-between gap-7">
-      <div className="btn btn-ghost btn-circle avatar">
+      <div className="btn btn-ghost btn-circle avatar tooltip tooltip-warning" data-tip={user?user.displayName:''}>
         <div className="w-10 rounded-full">
           <img
             alt="Tailwind CSS Navbar component"
-            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+            src={user?user.photoURL:userpic}/>
         </div>
       </div>
-      <button className='btn btn-outline rounded-lg border-2 border-orange-700 text-orange-600 font-bold px-8 text-lg hover:bg-orange-600 hover:text-white'>LogIn</button>
-      <button className='btn btn-outline rounded-lg border-2 border-orange-700 text-orange-600 font-bold px-8 text-lg hover:bg-orange-600 hover:text-white'>Registration</button>
+      {
+        user?<div className='ml-10'><NavLink onClick={handlelogout}><button className='btn btn-outline rounded-lg border-2 border-orange-700 text-orange-600 font-bold px-8 text-lg hover:bg-orange-600 hover:text-white'>LogOut</button></NavLink></div>:<div className='flex gap-4'>
+      <NavLink to={`login`}><button className='btn btn-outline rounded-lg border-2 border-orange-700 text-orange-600 font-bold px-8 text-lg hover:bg-orange-600 hover:text-white'>LogIn</button></NavLink>
+      <NavLink to={`registration`}><button className='btn btn-outline rounded-lg border-2 border-orange-700 text-orange-600 font-bold px-8 text-lg hover:bg-orange-600 hover:text-white'>Registration</button></NavLink>
     </div>
-
+      }
+      
+   </div>
   </div>
 </div>
  </div>       
