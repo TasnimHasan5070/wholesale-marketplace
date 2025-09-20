@@ -1,8 +1,35 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useContext } from 'react';
 import { NavLink } from 'react-router';
+import Swal from 'sweetalert2';
+import { Authcontext } from './Authcontext';
 const Allproductcard = ({product,catagoryid,productid}) => {
-     const {_id,image,name,main_quantity,minimum_selling_quantity,price,brand_name,product_content,rating,short_description}=product
+     const {_id,image,name,minimum_selling_quantity,price,brand_name}=product
      console.log(product)
+     const {user}=useContext(Authcontext)
+     const handlecart=()=>{
+      axios.post(`http://localhost:3000/cart`,{...product,catagoryid:catagoryid,clientemail:user.email,quantity:minimum_selling_quantity})
+      .then(data=>{
+        console.log(data)
+        if(data.data.insertedId==productid){
+            Swal.fire({
+                           title: "Added in Cart Successfully!",
+                           icon: "success",
+                           draggable: true
+                          });
+        }
+      })
+      .catch(error=>{
+        console.log(error)
+        if(error.status==500){
+          Swal.fire({
+                           title: "Already existed in Cart!",
+                           icon: "error",
+                           draggable: true
+                          });
+        }
+      })
+     }
     return (
         <div>
          <div className="card bg-base-100 w-96 shadow-sm mt-16 border-1 border-orange-400 hover:scale-105">
@@ -24,7 +51,7 @@ const Allproductcard = ({product,catagoryid,productid}) => {
     <div className="card-actions flex justify-between">
     <NavLink to={`/products/${catagoryid}/${productid}`}><button className="btn btn-outline rounded-2xl border-orange-500 px-5 font-bold border-2 hover:bg-orange-400 hover:text-white lobstar text-lg">Update</button></NavLink>
     <NavLink to={`/detailproducts/${catagoryid}/${productid}`}><button className="btn btn-outline rounded-2xl border-orange-500 px-5 font-bold border-2 hover:bg-orange-400 hover:text-white lobstar text-lg">Details</button></NavLink>
-    <button className="btn btn-outline rounded-2xl border-orange-500 px-5 font-bold border-2 hover:bg-orange-400 hover:text-white lobstar text-lg">Add to Cart</button>
+    <button onClick={handlecart} className="btn btn-outline rounded-2xl border-orange-500 px-5 font-bold border-2 hover:bg-orange-400 hover:text-white lobstar text-lg">Add to Cart</button>
     </div>
   </div>
 </div>     

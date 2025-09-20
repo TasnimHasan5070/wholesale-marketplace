@@ -5,7 +5,7 @@ import Allproductcard from '../shared/Allproductcard';
 const Myproduct = () => {
     const [products,setproducts]=useState([])
     const {user}=useContext(Authcontext)
-    console.log(user.email)
+    console.log(user?.email)
     useEffect(()=>{
         if(!user) 
             return;
@@ -13,7 +13,8 @@ const Myproduct = () => {
         .then(res=>res.json())
         .then(data=>{
             console.log(data)
-            const filterdata=data.flatMap((catagory)=>catagory.items.filter(item=>(item.email===user.email)))
+            //const filterdata=data.flatMap((catagory)=>catagory.items.filter(item=>(item.email===user.email)))
+            const filterdata=data.map((cat)=>cat.items.filter((item)=>item.email==user.email).map((item)=>({...item,catagoryid:cat._id,productid:item._id}))).flat()
             setproducts(filterdata)
             })
          },[user])
@@ -25,7 +26,7 @@ const Myproduct = () => {
             }
         <div className='grid grid-cols-3 ml-10'>
            {
-             (products.length>0)&&(products.map(product=>< Allproductcard product={product} catagoryid={product._id}></Allproductcard>))
+             (products.length>0)&&(products.map(product=>< Allproductcard product={product} productid={product.productid} catagoryid={product.catagoryid}></Allproductcard>))
            } 
         </div>
         </div>
