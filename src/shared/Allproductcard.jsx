@@ -8,7 +8,7 @@ const Allproductcard = ({product,catagoryid,productid}) => {
      console.log(product)
      const {user}=useContext(Authcontext)
      const handlecart=()=>{
-      axios.post(`http://localhost:3000/cart`,{...product,catagoryid:catagoryid,clientemail:user.email,quantity:minimum_selling_quantity})
+      axios.post(`https://wholesale-platfrom-server.vercel.app/cart`,{...product,catagoryid:catagoryid,clientemail:user.email,quantity:minimum_selling_quantity})
       .then(data=>{
         console.log(data)
         if(data.data.insertedId==productid){

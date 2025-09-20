@@ -16,12 +16,12 @@ const Registration = () => {
                  e.target.reset()
                  signup(email,pass)
                  .then((res)=>{
-                    console.log(res.user)
+                    //console.log(res.user)
                     //const userinfo=res.user
                     updateprofile({   
                         displayName:name,photoURL:photo
                     })
-                    console.log(res.user)
+                   // console.log(res.user)
                     Swal.fire({
                       title: "Successfully Created Your Account",
                       icon: "success",

@@ -17,7 +17,7 @@ const Login = () => {
          signin(email,pass)
          .then(res=>{
             navigate(`${location.state?location.state?.from?.pathname:'/'}`)
-            console.log(res.user)
+           // console.log(res.user)
         })
         .catch((error)=>Swal(`${error.message}`, "you have to provide correct info!", "error"))
     }

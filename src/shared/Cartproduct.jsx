@@ -15,7 +15,7 @@ const Cartproduct = ({eachproduct,cart,setcart}) => {
   confirmButtonText: "Yes, delete it!"
 }).then((result) => {
   if (result.isConfirmed) {
-    axios.delete(`http://localhost:3000/cart/${_id}`,eachproduct)
+    axios.delete(`https://wholesale-platfrom-server.vercel.app/cart/${_id}`,eachproduct)
          .then(data=>{
              if(data.data.deletedCount==1){
             console.log(data)
@@ -31,7 +31,7 @@ const Cartproduct = ({eachproduct,cart,setcart}) => {
 )
 .catch((error)=>console.log(error))
 
-/*axios.patch(`http://localhost:3000/cart/${eachproduct.catagoryid}/${eachproduct._id}`,{
+/*axios.patch(`https://wholesale-platfrom-server.vercel.app/cart/${eachproduct.catagoryid}/${eachproduct._id}`,{
 
 })
 .then(data=>console.log(data))

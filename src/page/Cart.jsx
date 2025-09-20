@@ -5,7 +5,7 @@ const Cart = () => {
     const [cart,setcart]=useState([])
     const {user}=useContext(Authcontext)
     useEffect(()=>{
-      fetch('http://localhost:3000/cart')
+      fetch('https://wholesale-platfrom-server.vercel.app/cart')
       .then(res=>res.json())
       .then(data=>setcart(data))
     },[user])

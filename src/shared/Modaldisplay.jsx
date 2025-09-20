@@ -33,7 +33,7 @@ transition: Bounce,
         }
 
         if(quantity>=(Number(sell))){
-            axios.patch(`http://localhost:3000/products/${catagoryid}/${productid}/stock`,
+            axios.patch(`https://wholesale-platfrom-server.vercel.app/products/${catagoryid}/${productid}/stock`,
             {
                 quantity:Number(quantity),
                 main_quantity:Number(main_quantity)
@@ -42,7 +42,7 @@ transition: Bounce,
             .then(data=>console.log(data))
             .catch(error=>console.log(error))
 
-            axios.post(`http://localhost:3000/cart`,{name:name,brand_name:brand_name,_id:productid,minimum_selling_quantity:minimum_selling_quantity,main_quantity:main_quantity,catagoryid:catagoryid,clientemail:user.email,quantity:quantity,image:image})
+            axios.post(`https://wholesale-platfrom-server.vercel.app/cart`,{name:name,brand_name:brand_name,_id:productid,minimum_selling_quantity:minimum_selling_quantity,main_quantity:main_quantity,catagoryid:catagoryid,clientemail:user.email,quantity:quantity,image:image})
       .then(data=>{
         console.log(data)
         if(data.data.insertedId==productid){

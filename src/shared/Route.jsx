@@ -24,17 +24,17 @@ const route=createBrowserRouter([
             },
             {
                 path:'/products/:catagoryid',
-                loader:({params})=>fetch(`http://localhost:3000/products/${params.catagoryid}`),
+                loader:({params})=>fetch(`https://wholesale-platfrom-server.vercel.app/products/${params.catagoryid}`),
                 Component:Catagoryproduct
             },
             {
                 path:'/products/:catagoryid/:productid',
-                loader:({params})=>fetch(`http://localhost:3000/products/${params.catagoryid}/${params.productid}`),
+                loader:({params})=>fetch(`https://wholesale-platfrom-server.vercel.app/products/${params.catagoryid}/${params.productid}`),
                 element:<Privateroute><Update></Update></Privateroute>
             },
             {
                 path:'allproducts',
-                loader:()=>fetch(`http://localhost:3000/products`),
+                loader:()=>fetch(`https://wholesale-platfrom-server.vercel.app/products`),
                 element:<Privateroute><Allproduct></Allproduct></Privateroute>
             },
             {
@@ -44,11 +44,11 @@ const route=createBrowserRouter([
             {
                path:'/detailproducts/:catagoryid/:productid',
                element:<Privateroute><Details></Details></Privateroute>,
-               loader:({params})=>fetch(`http://localhost:3000/products/${params.catagoryid}/${params.productid}`),
+               loader:({params})=>fetch(`https://wholesale-platfrom-server.vercel.app/products/${params.catagoryid}/${params.productid}`),
             },
             {
                 path:'/Cart',
-                Component:Cart
+                element:<Privateroute><Cart></Cart></Privateroute>
             },
             {
                 path:'/login',

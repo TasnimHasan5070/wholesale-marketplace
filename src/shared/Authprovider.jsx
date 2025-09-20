@@ -34,7 +34,7 @@ const [loader,setloader]=useState(true);
            const unsubscribe =onAuthStateChanged(auth,(currentuser)=>{
               if(currentuser){
                 setuser(currentuser)
-                console.log(currentuser)
+                //console.log(currentuser)
                 setloader(false)
               }
               

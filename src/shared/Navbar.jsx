@@ -9,7 +9,7 @@ import userpic from '../assets/userpic.png'
 const Navbar = () => {
   const [Product,setProduct]=useState([])
   useEffect(()=>{
-    fetch('http://localhost:3000/products')
+    fetch('https://wholesale-platfrom-server.vercel.app/products')
     .then((res)=>res.json())
     .then((data)=>setProduct(data))
     //console.log(Product)

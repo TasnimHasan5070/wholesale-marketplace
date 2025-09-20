@@ -52,8 +52,8 @@ const Update = () => {
        e.preventDefault()
       const form=e.target
       const formdata=Object.fromEntries(new FormData(form).entries())
-      console.log(formdata)
-      axios.patch(`http://localhost:3000/products/${catagoryid}/${productid}`,formdata)
+      //console.log(formdata)
+      axios.patch(`https://wholesale-platfrom-server.vercel.app/products/${catagoryid}/${productid}`,formdata)
       .then(data=>{
         console.log(data)
         if(data.data.modifiedCount==1){

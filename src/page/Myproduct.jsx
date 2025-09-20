@@ -5,11 +5,11 @@ import Allproductcard from '../shared/Allproductcard';
 const Myproduct = () => {
     const [products,setproducts]=useState([])
     const {user}=useContext(Authcontext)
-    console.log(user?.email)
+   // console.log(user?.email)
     useEffect(()=>{
         if(!user) 
             return;
-        fetch('http://localhost:3000/products')
+        fetch('https://wholesale-platfrom-server.vercel.app/products')
         .then(res=>res.json())
         .then(data=>{
             console.log(data)

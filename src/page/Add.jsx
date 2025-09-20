@@ -40,10 +40,10 @@ const Add = () => {
        e.preventDefault()
       const form=e.target
       const formdata=Object.fromEntries(new FormData(form).entries())
-      console.log(formdata)
-      axios.post(`http://localhost:3000/products`,formdata)
+      //console.log(formdata)
+      axios.post(`https://wholesale-platfrom-server.vercel.app/products`,formdata)
       .then(data=>{
-        console.log(data)
+       // console.log(data)
         if(data.data.modifiedCount==1){
                 Swal.fire({
                 title: "Update Successfully!",
