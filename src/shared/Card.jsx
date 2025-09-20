@@ -3,7 +3,7 @@ import { NavLink } from 'react-router';
 
 const Card = ({catagoryid,productid,eachproduct}) => {
   console.log(eachproduct)
-  const {_id,image,name,main_quantity,minimum_selling_quantity,price,brand_name,product_content,rating,short_description}=eachproduct
+  const {_id,image,name,minimum_selling_quantity,price,brand_name}=eachproduct
     return (
         <div>
           <div className="card bg-base-100 w-96 shadow-sm mt-6 border-1 border-orange-400 hover:scale-105">
